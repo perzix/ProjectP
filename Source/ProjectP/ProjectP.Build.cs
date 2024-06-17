@@ -8,6 +8,15 @@ public class ProjectP : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 
-        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput" });
+        PublicIncludePaths.AddRange(new string[] { "ProjectP" });
+
+        PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "NavigationSystem", "AIModule", "Niagara", "EnhancedInput", "UMG" });
+
+        PrivateDependencyModuleNames.AddRange(new string[] {
+            "GameFeatures",
+            "GameplayAbilities",
+            "GameplayTasks",
+            "GameplayTags"
+        });
     }
 }

@@ -4,11 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Character.h"
+#include "AbilitySystemInterface.h"
 #include "ProjectPCharacter.generated.h"
 
 UCLASS(Blueprintable)
-class AProjectPCharacter : public ACharacter
+class AProjectPCharacter : public ACharacter, public IAbilitySystemInterface
 {
+public:
+	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
+
+private:
 	GENERATED_BODY()
 
 public:
@@ -30,5 +35,7 @@ private:
 	/** Camera boom positioning the camera above the character */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	class USpringArmComponent* CameraBoom;
+
+	UAbilitySystemComponent* AbilitySystemComponent;
 };
 
