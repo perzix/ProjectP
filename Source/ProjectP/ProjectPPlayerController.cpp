@@ -32,6 +32,7 @@ void AProjectPPlayerController::BeginPlay()
 	{
 		Subsystem->AddMappingContext(DefaultMappingContext, 0);
 	}
+	ConsoleCommand(TEXT("showdebug abilitysystem"));
 }
 
 void AProjectPPlayerController::SetupInputComponent()
@@ -142,6 +143,4 @@ void AProjectPPlayerController::QuarterMove(const FInputActionValue& Value)
 	FVector MoveDirection = FVector(MovementVector.X, MovementVector.Y, 0.0f);
 	SetControlRotation(FRotationMatrix::MakeFromX(MoveDirection).Rotator());
 	GetPawn()->AddMovementInput(MoveDirection, MovementVectorSize);
-
-	
 }

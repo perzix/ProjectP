@@ -6,7 +6,7 @@
 APPPlayerState::APPPlayerState()
 {
 	AbilitySystemComponent = CreateDefaultSubobject<UAbilitySystemComponent>(TEXT("AbilitySystemComponent"));
-	AbilitySystemComponent->SetIsReplicated(true);
+	//AbilitySystemComponent->SetIsReplicated(true);
 }
 
 UAbilitySystemComponent* APPPlayerState::GetAbilitySystemComponent() const

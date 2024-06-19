@@ -1,6 +1,9 @@
 // Copyright Epic Games, Inc. All Rights Reserved.
 
 #include "ProjectPCharacter.h"
+
+#include "AbilitySystemComponent.h"
+#include "Attribute/PPCharacterAttributeSet.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Camera/CameraComponent.h"
 #include "Components/CapsuleComponent.h"
@@ -55,3 +58,49 @@ void AProjectPCharacter::Tick(float DeltaSeconds)
 {
     Super::Tick(DeltaSeconds);
 }
+
+void AProjectPCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+
+}
+
+void AProjectPCharacter::PossessedBy(AController* NewController)
+{
+	Super::PossessedBy(NewController);
+	APPPlayerState* PPPlayerState = GetPlayerState<APPPlayerState>();
+	if (PPPlayerState == nullptr)
+	{
+		return;
+	}
+	AbilitySystemComponent = PPPlayerState->GetAbilitySystemComponent();
+	AbilitySystemComponent->InitAbilityActorInfo(PPPlayerState, this);
+	for (TSubclassOf<UGameplayAbility> StartAbility : StartAbilities)
+	{
+		FGameplayAbilitySpec StartSpec(StartAbility);
+		AbilitySystemComponent->GiveAbility(StartSpec);
+	}
+	
+}
+
+void AProjectPCharacter::AddMovementInput(FVector WorldDirection, float ScaleValue, bool bForce)
+{
+	if(AbilitySystemComponent == nullptr)
+	{
+		return;
+	}
+	float MoveSpeed = ScaleValue;
+	const UPPCharacterAttributeSet* AttributeSet = AbilitySystemComponent->GetSet<UPPCharacterAttributeSet>();
+	if(AttributeSet == nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("[AProjectPCharacter::AddMovementInput] AttributeSet is nullptr"));
+	}
+	else
+	{
+		MoveSpeed *= AttributeSet->GetMoveSpeed();
+		UE_LOG(LogTemp, Log, TEXT("CurrentMoveSpeed : %f"), MoveSpeed);
+	}
+	Super::AddMovementInput(WorldDirection, MoveSpeed, bForce);
+}
+
+
