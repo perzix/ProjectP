@@ -7,6 +7,8 @@
 #include "AbilitySystemInterface.h"
 #include "ProjectPCharacter.generated.h"
 
+class UPPCharacterAttributeSet;
+
 UCLASS(Blueprintable)
 class AProjectPCharacter : public ACharacter, public IAbilitySystemInterface
 {
@@ -42,7 +44,14 @@ private:
 
 	UPROPERTY(EditAnywhere, Category = GAS)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	
 	UPROPERTY(EditAnywhere, Category = GAS)
 	TArray<TSubclassOf<class UGameplayAbility>> StartAbilities;
+
+	UPROPERTY(EditAnywhere, Category = GAS)
+	TSubclassOf<class UGameplayEffect> InitStatEffect;
+
+	UPROPERTY(EditAnywhere, Category = GAS)
+	int Level;
 };
 

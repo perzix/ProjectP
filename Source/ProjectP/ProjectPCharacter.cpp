@@ -80,7 +80,13 @@ void AProjectPCharacter::PossessedBy(AController* NewController)
 		FGameplayAbilitySpec StartSpec(StartAbility);
 		AbilitySystemComponent->GiveAbility(StartSpec);
 	}
-	
+	FGameplayEffectContextHandle EffectContextHandle = AbilitySystemComponent->MakeEffectContext();
+	EffectContextHandle.AddSourceObject(this);
+	FGameplayEffectSpecHandle EffectSpecHandle = AbilitySystemComponent->MakeOutgoingSpec(InitStatEffect, Level, EffectContextHandle);
+	if (EffectSpecHandle.IsValid())
+	{
+		AbilitySystemComponent->BP_ApplyGameplayEffectSpecToSelf(EffectSpecHandle);
+	}
 }
 
 void AProjectPCharacter::AddMovementInput(FVector WorldDirection, float ScaleValue, bool bForce)

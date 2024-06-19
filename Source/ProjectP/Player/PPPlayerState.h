@@ -7,6 +7,7 @@
 #include "GameFramework/PlayerState.h"
 #include "PPPlayerState.generated.h"
 
+class UPPCharacterAttributeSet;
 class UAbilitySystemComponent;
 /**
  * 
@@ -24,6 +25,8 @@ public:
 protected:
 	UPROPERTY(EditAnywhere, Category = GAS)
 	TObjectPtr<UAbilitySystemComponent> AbilitySystemComponent;
+	UPROPERTY(EditAnywhere, Category = GAS)
+	TObjectPtr<UPPCharacterAttributeSet> AttributeSet;
 	
 };
 
